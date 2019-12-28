@@ -4,6 +4,11 @@ class GuileAT3 < Formula
   url "https://alpha.gnu.org/gnu/guile/guile-2.9.7.tar.gz"
   sha256 "280fc7cc6d48f15a5ef5ff9fa1ca6d42da0ac8153e68c7ac2d52e996fdd36af0"
 
+  bottle do
+    root_url "https://dl.bintray.com/ngqrl/bottles-guile"
+    sha256 "b882c22c380c47a1d3476b9b6b067c9a0d585908efeed757e0304a2d74d17be3" => :catalina
+  end
+
   keg_only "m4 macros, texinfo & man pages conflicts with other installed versions of Guile"
 
   depends_on "autoconf" => :build
