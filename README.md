@@ -10,6 +10,8 @@ the [documentation](https://www.gnu.org/software/guile/docs/master/guile.html).
 
 Bottles are provided for macOS 10.15 Catalina onwards.
 
+Binaries, info and man pages are suffixed with `-2.9`.
+
 ## How do I install these formulae?
 `brew install ngquerol/guile3/<formula>`
 

@@ -9,8 +9,6 @@ class GuileAT3 < Formula
     sha256 "b882c22c380c47a1d3476b9b6b067c9a0d585908efeed757e0304a2d74d17be3" => :catalina
   end
 
-  keg_only "m4 macros, texinfo & man pages conflicts with other installed versions of Guile"
-
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "gnu-sed" => :build
@@ -25,15 +23,18 @@ class GuileAT3 < Formula
   depends_on "readline"
 
   def install
+    version_suffix="-#{version.to_s.slice(/\d\.\d/)}"
+
     # Work around Xcode 11 clang bug
     # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
     ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
 
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--program-suffix=-#{version.to_s.slice(/\d\.\d/)}",
-                          "--with-libreadline-prefix=#{Formula["readline"].opt_prefix}",
-                          "--with-libgmp-prefix=#{Formula["gmp"].opt_prefix}"
+    system "./configure",
+           "--disable-dependency-tracking",
+           "--prefix=#{prefix}",
+           "--program-suffix=#{version_suffix}",
+           "--with-libreadline-prefix=#{Formula["readline"].opt_prefix}",
+           "--with-libgmp-prefix=#{Formula["gmp"].opt_prefix}"
 
     system "make", "install"
 
@@ -51,7 +52,20 @@ class GuileAT3 < Formula
       s.gsub! Formula["libffi"].prefix.realpath, Formula["libffi"].opt_prefix
     end
 
+    # Install GDB support files
     (share/"gdb/auto-load").install Dir["#{lib}/*-gdb.scm"]
+
+    # Prevent conflicts with regular versions of Guile
+    Pathname
+      .glob(format("{%<dirs>s}/*",
+                   :dirs => ["aclocal", "info"] .map { |dir| share/dir } .join(",")))
+      .each do |file|
+      mv(file, format("%<directory>s/%<basename>s%<suffix>s%<extension>s",
+                     :directory => File.dirname(file),
+                     :basename  => File.basename(file, ".*"),
+                     :suffix    => version_suffix,
+                     :extension => File.extname(file)))
+    end
   end
 
   test do
