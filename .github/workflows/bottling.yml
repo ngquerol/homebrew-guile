@@ -63,7 +63,7 @@ jobs:
               --header "Content-Type: application/json" \
               --data " \
                 {\"name\": \"$package\", \
-                \"vcs_url\": \"$GITHUB_REPOSITORY\", \
+                \"vcs_url\": \"https://github.com/${GITHUB_REPOSITORY}\", \
                 \"licenses\": [\"MIT\"], \
                 \"public_download_numbers\": true, \
                 \"public_stats\": true \
@@ -80,5 +80,5 @@ jobs:
         env:
           GITHUB_USER: ${{github.event.repository.owner.login}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          BRANCH: pr-${{github.event.pull_request.number}}
-        run: git -C $(brew --repository $GITHUB_REPOSITORY) push -f https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git HEAD:$BRANCH
+          BRANCH: ${{github.event.pull_request.head.ref}}
+        run: git -C $(brew --repository $GITHUB_REPOSITORY) push https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git HEAD:$BRANCH
