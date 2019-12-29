@@ -1,7 +1,5 @@
 # Guile 3 Beta
 
-![Bottling status](https://img.shields.io/github/workflow/status/ngquerol/homebrew-guile/Bottling?label=bottling&logo=Apple&logoColor=fff)
-
 [GNU Guile](https://www.gnu.org/software/guile/) 3 beta releases.
 
 For a general idea of how this major version compares to the 2.2 branch, head
