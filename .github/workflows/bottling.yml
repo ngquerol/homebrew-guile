@@ -81,4 +81,4 @@ jobs:
           GITHUB_USER: ${{github.event.repository.owner.login}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           BRANCH: ${{github.event.pull_request.head.ref}}
-        run: git -C $(brew --repository $GITHUB_REPOSITORY) push https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git HEAD:$BRANCH
+        run: git -C $(brew --repository $GITHUB_REPOSITORY) push -f https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git HEAD:$BRANCH
