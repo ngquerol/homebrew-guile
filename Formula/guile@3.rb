@@ -6,7 +6,7 @@ class GuileAT3 < Formula
 
   bottle do
     root_url "https://dl.bintray.com/ngqrl/bottles-guile"
-    sha256 "0058ae73288c96d34abce73b3fe63822c0948c1ac9fc71496c857e5dbe4f368a" => :catalina
+    sha256 "483dbdcec25bed7bb24d6100ba48956c41701d849918198c8f43175705c67f92" => :catalina
   end
 
   depends_on "autoconf" => :build
