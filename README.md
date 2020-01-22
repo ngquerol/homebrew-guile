@@ -1,14 +1,10 @@
-# Guile 3 Beta
+# Guile 3
 
-[GNU Guile](https://www.gnu.org/software/guile/) 3 beta releases.
-
-For a general idea of how this major version compares to the 2.2 branch, head
-over to the [mailing list](https://lists.gnu.org/archive/html/guile-user) or
-the [documentation](https://www.gnu.org/software/guile/docs/master/guile.html).
+This is [GNU Guile](https://www.gnu.org/software/guile) version 3, packaged for [Homebrew](https://brew.sh).
 
 Bottles are provided for macOS 10.15 Catalina onwards.
 
-Binaries, info and man pages are suffixed with `-2.9`.
+Binaries, info and man pages are suffixed with `-3.x` in order to not conflict with other versions of Guile, such as `2.2.x`.
 
 ## How do I install these formulae?
 `brew install ngquerol/guile3/<formula>`

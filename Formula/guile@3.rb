@@ -1,5 +1,5 @@
 class GuileAT3 < Formula
-  desc "GNU Ubiquitous Intelligent Language for Extensions — version 3 BETA"
+  desc "GNU Ubiquitous Intelligent Language for Extensions — version 3"
   homepage "https://www.gnu.org/software/guile/"
   url "https://ftp.gnu.org/gnu/guile/guile-3.0.0.tar.xz"
   sha256 "c9138d6595a9f69bf9733d0bc2d3b9f3d8b79f35f289006912b3361cb0510c75"
@@ -55,7 +55,7 @@ class GuileAT3 < Formula
     # Install GDB support files
     (share/"gdb/auto-load").install Dir["#{lib}/*-gdb.scm"]
 
-    # Prevent conflicts with regular versions of Guile
+    # Prevent conflicts with other versions of Guile
     Pathname
       .glob(format("{%<dirs>s}/*",
                    :dirs => ["aclocal", "info"] .map { |dir| share/dir } .join(",")))
