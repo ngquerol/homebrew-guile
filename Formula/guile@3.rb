@@ -23,8 +23,6 @@ class GuileAT3 < Formula
   depends_on "readline"
 
   def install
-    version_suffix="-#{version.to_s.slice(/\d\.\d/)}"
-
     # Work around Xcode 11 clang bug
     # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
     ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
@@ -32,7 +30,7 @@ class GuileAT3 < Formula
     system "./configure",
            "--disable-dependency-tracking",
            "--prefix=#{prefix}",
-           "--program-suffix=#{version_suffix}",
+           "--program-suffix=-3.0",
            "--with-libreadline-prefix=#{Formula["readline"].opt_prefix}",
            "--with-libgmp-prefix=#{Formula["gmp"].opt_prefix}"
 
@@ -63,20 +61,22 @@ class GuileAT3 < Formula
       mv(file, format("%<directory>s/%<basename>s%<suffix>s%<extension>s",
                      :directory => File.dirname(file),
                      :basename  => File.basename(file, ".*"),
-                     :suffix    => version_suffix,
+                     :suffix    => "-3.0",
                      :extension => File.extname(file)))
     end
   end
 
   test do
-    hello = testpath/"hello.scm"
-    hello.write <<~EOS
+    test_file = (testpath/"hello.scm")
+
+    test_file.write <<~EOS
       (display "Hello World")
       (newline)
     EOS
 
     ENV["GUILE_AUTO_COMPILE"] = "0"
 
-    system bin/"guile-#{version.to_s.slice(/\d\.\d/)}", hello
+    output = shell_output("#{bin}/guile-3.0 #{test_file}")
+    assert_equal "Hello World", output.strip
   end
 end
