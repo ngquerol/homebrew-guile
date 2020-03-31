@@ -1,8 +1,8 @@
 class GuileAT3 < Formula
   desc "GNU Ubiquitous Intelligent Language for Extensions — version 3"
   homepage "https://www.gnu.org/software/guile/"
-  url "https://ftp.gnu.org/gnu/guile/guile-3.0.1.tar.xz"
-  sha256 "d696ead0fd138cc7ef883b50cc6b4be2898d18ff64bd1e9379081e1186be53c9"
+  url "https://ftp.gnu.org/gnu/guile/guile-3.0.2.tar.xz"
+  sha256 "53c47d320533c80a3145adbd83e14bbe107c0441c18a8b214ff20849b28a9f8a"
 
   bottle do
     root_url "https://dl.bintray.com/ngqrl/bottles-guile"
