@@ -27,6 +27,9 @@ class GuileAT3 < Formula
     # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
     ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
 
+    # Avoid superenv shim
+    inreplace "meta/guile-config.in", "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
+
     system "./configure",
            "--disable-dependency-tracking",
            "--prefix=#{prefix}",
@@ -56,7 +59,7 @@ class GuileAT3 < Formula
     # Prevent conflicts with other versions of Guile
     Pathname
       .glob(format("{%<dirs>s}/*",
-                   :dirs => ["aclocal", "info"] .map { |dir| share/dir } .join(",")))
+                   :dirs => ["aclocal", "info"].map { |dir| share/dir }.join(",")))
       .each do |file|
       mv(file, format("%<directory>s/%<basename>s%<suffix>s%<extension>s",
                      :directory => File.dirname(file),
